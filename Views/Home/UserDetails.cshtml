@@ -1,0 +1,15 @@
+﻿@model PeopleAccountViewModel
+@{
+    ViewData["Title"] = "User Details";
+}
+
+@Model.Name, @Model.Gender<br />
+@Model.Company<br />
+@Model.Email<br />
+@Model.Phone<br />
+@Model.Address<br />
+@Model.About<br />
+@foreach (var tag in Model.Tags)
+{
+    @tag
+}<br />

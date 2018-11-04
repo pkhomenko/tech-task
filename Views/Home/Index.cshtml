@@ -1,17 +1,32 @@
 ﻿@model IEnumerable<PeopleAccountViewModel>
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Users";
 }
 
 <table>
     @foreach (var acc in Model)
     {
         <tr>
-            <td>@acc.Name</td>
+            <td>
+                <a asp-controller="Home"
+                   asp-action="UserDetails"
+                   asp-route-id="@acc.Id">
+                    @acc.Name
+                </a>
+            </td>
             <td>@acc.Company</td>
             <td>@acc.Email</td>
             <td>@acc.Phone</td>
-            <td>@string.Concat(acc.Tags)</td>
+            <td>
+                @foreach (var tag in acc.Tags)
+                {
+                    <a asp-controller="Home"
+                       asp-action="UsersWithTag"
+                       asp-route-tagName="@tag">
+                        @tag
+                    </a>
+                }
+            </td>
         </tr>
     }
 </table>

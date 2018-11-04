@@ -31,6 +31,7 @@ namespace IdentityDemo.Controllers
 
             var vm = peopleAccounts.Select(peopleAccount => new PeopleAccountViewModel()
             {
+                Id = peopleAccount.Id,
                 Company = peopleAccount.Company,
                 Email = peopleAccount.Email,
                 Name = peopleAccount.Name,
@@ -39,6 +40,56 @@ namespace IdentityDemo.Controllers
             });
 
             return View(vm);
+        }
+
+        public IActionResult UsersWithTag(string tagName)
+        {
+            var peopleAccounts = _applicationDbContext
+                .PeopleAccounts
+                .Include(x => x.Tags)
+                .Where(x => x.Tags.Any(tag => tag.Value == tagName))
+                .ToList();
+
+            var vm = peopleAccounts.Select(peopleAccount => new PeopleAccountViewModel()
+            {
+                Id = peopleAccount.Id,
+                Company = peopleAccount.Company,
+                Email = peopleAccount.Email,
+                Name = peopleAccount.Name,
+                Phone = peopleAccount.Phone,
+                Tags = peopleAccount.Tags.Select(tag => tag.Value).ToList()
+            });
+
+            return View("Index", vm);
+        }
+
+        public IActionResult UserDetails(Guid id)
+        {
+            var user = _applicationDbContext
+                .PeopleAccounts
+                .Include(x => x.Tags)
+                .Where(x => x.Id == id)
+                .FirstOrDefault();
+
+            if (user != null)
+            {
+                var vm = new PeopleAccountViewModel()
+                {
+                    Id = user.Id,
+                    Company = user.Company,
+                    Email = user.Email,
+                    Name = user.Name,
+                    Phone = user.Phone,
+                    About = user.About,
+                    Address = user.Address,
+                    Gender = user.Gender,
+                    Tags = user.Tags.Select(tag => tag.Value).ToList()
+                };
+
+                return View(vm);
+            }
+
+            return View(null);
         }
 
         [Authorize]
