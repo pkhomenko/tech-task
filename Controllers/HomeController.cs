@@ -60,6 +60,8 @@ namespace IdentityDemo.Controllers
                 Tags = peopleAccount.Tags.Select(tag => tag.Value).ToList()
             });
 
+            ViewData["IsTagFiltered"] = true;
+
             return View("Index", vm);
         }
 
@@ -83,6 +85,7 @@ namespace IdentityDemo.Controllers
                     About = user.About,
                     Address = user.Address,
                     Gender = user.Gender,
+                    Picture = user.Picture,
                     Tags = user.Tags.Select(tag => tag.Value).ToList()
                 };
 

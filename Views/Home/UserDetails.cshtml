@@ -3,13 +3,26 @@
     ViewData["Title"] = "User Details";
 }
 
-@Model.Name, @Model.Gender<br />
-@Model.Company<br />
-@Model.Email<br />
-@Model.Phone<br />
-@Model.Address<br />
-@Model.About<br />
-@foreach (var tag in Model.Tags)
-{
-    @tag
-}<br />
+<div class="page-header">
+    <h1>User Details</h1>
+</div>
+<div class="media">
+    <div class="media-left">
+        <img src="~/images/@Model.Picture" alt="user picture" />
+    </div>
+    <div class="media-body">
+        <h4>@Model.Name, @Model.Gender</h4>
+        @Model.Company<br />
+        @Model.Email<br />
+        @Model.Phone<br />
+        @Model.Address<br />
+        @Model.About<br />
+        @foreach (var tag in Model.Tags)
+        {
+            <span class="label label-default">@tag</span>
+        }
+    </div>
+</div>
+<a asp-controller="Home" asp-action="Index" >< Home</a>
+
+

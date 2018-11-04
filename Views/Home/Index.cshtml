@@ -2,8 +2,19 @@
 @{
     ViewData["Title"] = "Users";
 }
-
-<table>
+<div class="page-header">
+    <h1>User List</h1>
+</div>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Company</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Tags</th>
+        </tr>
+    </thead>
     @foreach (var acc in Model)
     {
         <tr>
@@ -30,3 +41,7 @@
         </tr>
     }
 </table>
+@if (ViewData["IsTagFiltered"] != null)
+{
+    <a asp-controller="Home" asp-action="Index">< Home</a>
+}
