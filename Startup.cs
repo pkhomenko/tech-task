@@ -24,7 +24,9 @@ namespace IdentityDemo
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
+                //options.UseInMemoryDatabase(Guid.NewGuid().ToString())
+                );
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -32,18 +34,17 @@ namespace IdentityDemo
 
             services.Configure<IdentityOptions>(options =>
             {
-                // Password settings
-                options.Password.RequireDigit = true;
-                options.Password.RequiredLength = 8;
+                //// Password settings
+                options.Password.RequireDigit = false;
+                options.Password.RequiredLength = 1;
                 options.Password.RequireNonAlphanumeric = false;
-                options.Password.RequireUppercase = true;
+                options.Password.RequireUppercase = false;
                 options.Password.RequireLowercase = false;
-                options.Password.RequiredUniqueChars = 6;
 
-                // Lockout settings
-                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
-                options.Lockout.MaxFailedAccessAttempts = 10;
-                options.Lockout.AllowedForNewUsers = true;
+                //// Lockout settings
+                //options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
+                //options.Lockout.MaxFailedAccessAttempts = 10;
+                //options.Lockout.AllowedForNewUsers = true;
 
                 // User settings
                 options.User.RequireUniqueEmail = true;
@@ -71,7 +72,10 @@ namespace IdentityDemo
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(
+            IApplicationBuilder app, 
+            IHostingEnvironment env,
+            UserManager<ApplicationUser> userManager)
         {
             if (env.IsDevelopment())
             {
@@ -95,6 +99,11 @@ namespace IdentityDemo
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            // seed data
+            var usersData = System.IO.File.ReadAllText(@"accounts.json");
+            var peopleData = System.IO.File.ReadAllText(@"data.json");
+            Seeder.Seed(usersData, peopleData, app.ApplicationServices, userManager).GetAwaiter().GetResult();
         }
     }
 }
