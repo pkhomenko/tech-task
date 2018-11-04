@@ -5,6 +5,11 @@
     <UserSecretsId>aspnet-IdentityDemo-7939A8EF-89B2-46F3-9E64-E33629F164CB</UserSecretsId>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Data\Migrations\20181104214303_AddedPeopleAccounts.cs" />
+    <Compile Remove="Data\Migrations\20181104214303_AddedPeopleAccounts.Designer.cs" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.5" />

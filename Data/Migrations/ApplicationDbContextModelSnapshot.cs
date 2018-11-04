@@ -113,7 +113,7 @@ namespace IdentityDemo.Data.Migrations
 
                     b.HasIndex("PeopleAccountId");
 
-                    b.ToTable("Tag");
+                    b.ToTable("Tags");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

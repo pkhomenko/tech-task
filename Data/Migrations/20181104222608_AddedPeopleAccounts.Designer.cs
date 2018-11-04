@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IdentityDemo.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20181104214303_AddedPeopleAccounts")]
+    [Migration("20181104222608_AddedPeopleAccounts")]
     partial class AddedPeopleAccounts
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -115,7 +115,7 @@ namespace IdentityDemo.Data.Migrations
 
                     b.HasIndex("PeopleAccountId");
 
-                    b.ToTable("Tag");
+                    b.ToTable("Tags");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

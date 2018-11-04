@@ -6,14 +6,39 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using IdentityDemo.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
+using IdentityDemo.Data;
 
 namespace IdentityDemo.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
+        private ApplicationDbContext _applicationDbContext;
+
+        public HomeController(
+            ApplicationDbContext applicationDbContext)
+        {
+            _applicationDbContext = applicationDbContext;
+        }
+
         public IActionResult Index()
         {
-            return View();
+            var peopleAccounts = _applicationDbContext
+                .PeopleAccounts
+                .Include(x => x.Tags)
+                .ToList();
+
+            var vm = peopleAccounts.Select(peopleAccount => new PeopleAccountViewModel()
+            {
+                Company = peopleAccount.Company,
+                Email = peopleAccount.Email,
+                Name = peopleAccount.Name,
+                Phone = peopleAccount.Phone,
+                Tags = peopleAccount.Tags.Select(tag => tag.Value).ToList()
+            });
+
+            return View(vm);
         }
 
         [Authorize]

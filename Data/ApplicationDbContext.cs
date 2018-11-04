@@ -16,6 +16,7 @@ namespace IdentityDemo.Data
         }
 
         public virtual DbSet<PeopleAccount> PeopleAccounts { get; set; }
+        public virtual DbSet<Tag> Tags { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

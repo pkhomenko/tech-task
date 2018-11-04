@@ -28,7 +28,7 @@ namespace IdentityDemo.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Tag",
+                name: "Tags",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
@@ -37,9 +37,9 @@ namespace IdentityDemo.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Tag", x => x.Id);
+                    table.PrimaryKey("PK_Tags", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Tag_PeopleAccounts_PeopleAccountId",
+                        name: "FK_Tags_PeopleAccounts_PeopleAccountId",
                         column: x => x.PeopleAccountId,
                         principalTable: "PeopleAccounts",
                         principalColumn: "Id",
@@ -47,15 +47,15 @@ namespace IdentityDemo.Data.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Tag_PeopleAccountId",
-                table: "Tag",
+                name: "IX_Tags_PeopleAccountId",
+                table: "Tags",
                 column: "PeopleAccountId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Tag");
+                name: "Tags");
 
             migrationBuilder.DropTable(
                 name: "PeopleAccounts");
