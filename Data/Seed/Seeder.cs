@@ -40,7 +40,7 @@ namespace IdentityDemo.Data
             using (var serviceScope = serviceProvider.CreateScope())
             {
                 var context = serviceScope.ServiceProvider.GetService<ApplicationDbContext>();
-                if (context.PeopleAccounts.Count() == 0)
+                if (!context.PeopleAccounts.Any())
                 {
                     var accounts = JsonConvert.DeserializeObject<List<PeopleAccountDto>>(jsonPeople);
 

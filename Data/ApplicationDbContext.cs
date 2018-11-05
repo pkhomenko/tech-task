@@ -17,13 +17,5 @@ namespace IdentityDemo.Data
 
         public virtual DbSet<PeopleAccount> PeopleAccounts { get; set; }
         public virtual DbSet<Tag> Tags { get; set; }
-
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
-            base.OnModelCreating(builder);
-            // Customize the ASP.NET Core Identity model and override the defaults if needed.
-            // For example, you can rename the ASP.NET Core Identity table names and more.
-            // Add your customizations after calling base.OnModelCreating(builder);
-        }
     }
 }

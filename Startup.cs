@@ -1,6 +1,5 @@
 ﻿using IdentityDemo.Data;
 using IdentityDemo.Models;
-using IdentityDemo.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -42,9 +41,7 @@ namespace IdentityDemo
                 options.Password.RequireLowercase = false;
 
                 //// Lockout settings
-                //options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
-                //options.Lockout.MaxFailedAccessAttempts = 10;
-                //options.Lockout.AllowedForNewUsers = true;
+                options.Lockout.AllowedForNewUsers = false;
 
                 // User settings
                 options.User.RequireUniqueEmail = true;
@@ -63,9 +60,6 @@ namespace IdentityDemo
                 options.AccessDeniedPath = "/Account/AccessDenied";
                 options.SlidingExpiration = true;
             });
-
-            // Add application services.
-            services.AddTransient<IEmailSender, EmailSender>();
 
             services.AddMvc();
 
